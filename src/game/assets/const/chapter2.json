@@ -1,0 +1,22 @@
+{
+    "title": "Chapter 2",
+    "id": "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    "mapEntries": {
+      "map1": {
+        "name": "map1",
+        "key": "fdsa89fhsv",
+        "position": {
+          "topRatio": 0.3,
+          "leftRatio": 0.3
+        }
+      },
+      "map2": {
+        "name": "map2",
+        "key": "dafsfgt7rt",
+        "position": {
+          "topRatio": 0.4,
+          "leftRatio": 0.8
+        }
+      }
+    }
+}
