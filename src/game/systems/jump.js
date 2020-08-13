@@ -1,4 +1,5 @@
 import Matter from "matter-js"
+import * as Constants from "../assets/const/constants";
 
 const Jump = (entities, {touches, time, screen, layout, events}) => {
     if (typeof Jump.standOnFloor == "undefined") {
@@ -7,6 +8,7 @@ const Jump = (entities, {touches, time, screen, layout, events}) => {
         Jump.jumpCount = 0;
     }
     let player = entities.player.body;
+    let world = entities.physics.world;
     let defaultFloor = entities.defaultFloor.body;
     if (events != undefined && events.length != 0) {
         for(e in events){
@@ -20,11 +22,22 @@ const Jump = (entities, {touches, time, screen, layout, events}) => {
             }
         }
     }
+
+    let hadTouches = false;
     touches.filter(t => t.type === "press").forEach(t => {
         if(Jump.standOnFloor === true || 
             Jump.standOnWall === true ||
             Jump.jumpCount <=1){
-            Matter.Body.applyForce(player, player.position, {x:0, y:-0.055});
+                if(!hadTouches){
+                    hadTouches = true;
+                    if(world.gravity.y === 0){
+                        world.gravity.y = 1.2;
+                    }
+                    Matter.Body.setVelocity(player, {
+                        x: player.velocity.x,
+                        y: -Constants.defaultPlayerJumpHeight,
+                    })
+                }
             Jump.jumpCount = Jump.jumpCount+1;
             Jump.standOnFloor = false;
             Jump.standOnWall = false;

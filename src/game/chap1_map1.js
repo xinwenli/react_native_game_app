@@ -4,6 +4,7 @@ import Timer from "./utils/perf-timer";
 import Matter from "matter-js";
 import CircleRenderer from "./graphics/circle_renderer";
 import RectRenderer from "./graphics/rect_renderer";
+import FloorRenderer from './graphics/floor_renderer';
 import Physics from "./systems/physics";
 import MapStart from "./systems/map_start";
 import MapStop from "./systems/map_stop";
@@ -184,17 +185,19 @@ class Chap1Map1 extends React.Component {
     let player = this.initEntityPropertiesObject(
       this.entityProperties,
       "player",
-      "circle",
+      "rectangle",
       "player",
       false,
-      Constants.defaultPlayerSize.radius,
       null,
-      null,
+      Constants.defaultPlayerSize.width,
+      Constants.defaultPlayerSize.height,
       Constants.defaultPlayerStartPosition.x,
       Constants.defaultPlayerStartPosition.y,
       "pink"
     );
     player.frictionAir = 0.03;
+
+    console.log(this.entityProperties["player"]);
 
     let defaultFloor = this.initEntityPropertiesObject(
       this.entityProperties,
@@ -207,7 +210,10 @@ class Chap1Map1 extends React.Component {
       Constants.defaultFloorSize.height,
       Constants.defaultFloorPosition.x,
       Constants.defaultFloorPosition.y,
-      "green"
+      "green",
+      {
+        renderer: FloorRenderer,
+      }
     );
 
     let floor1 = this.initEntityPropertiesObject(

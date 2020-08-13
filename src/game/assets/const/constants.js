@@ -12,11 +12,15 @@ export const collisionCategory = {
 
 export const baseFloorLevel = (Screen.height / 10) * 9;
 export const baseFloorHeight = Screen.height - baseFloorLevel;
-export const defaultPlayerSize = { radius: Screen.height / 15 };
+export const defaultPlayerSize = {
+  radius: Screen.height / 15,
+  width: Screen.width / 20,
+  height: Screen.height / 8,
+};
 export const defaultPlayerStartPosition = {
   //x: 10,
   x: Screen.width / 3,
-  y: baseFloorLevel - defaultPlayerSize.radius,
+  y: baseFloorLevel - defaultPlayerSize.height/2,
 };
 
 export const wall1Size = {
@@ -90,16 +94,16 @@ export const defaultPlayerSpeed = 2;
 export const defaultEnemySpeed = 2;
 
 export const defaultChapterBoxSize = {
-    width: (Screen.width / 5) * 3,
-    height: (Screen.height / 5) * 3,
-  };
+  width: (Screen.width / 5) * 3,
+  height: (Screen.height / 5) * 3,
+};
 
 export const defaultMapEntryRadius = Screen.height / 20;
 export const chapterFlstListPadding = {
-    top: Screen.height / 5,
-    left: Screen.width / 8,
-    bottom: Screen.height / 4,
-  };
+  top: Screen.height / 5,
+  left: Screen.width / 8,
+  bottom: Screen.height / 4,
+};
 
 export const chapterProps = [chapter1Data, chapter2Data];
 
@@ -114,3 +118,4 @@ export const defaultPlayerProps = {
 };
 
 export const defaultPlayerDamageResisTime = 2 * 1000;
+export const defaultPlayerJumpHeight = 8;
