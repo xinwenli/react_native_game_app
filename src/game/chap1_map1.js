@@ -5,6 +5,7 @@ import Matter from "matter-js";
 import CircleRenderer from "./graphics/circle_renderer";
 import RectRenderer from "./graphics/rect_renderer";
 import FloorRenderer from './graphics/floor_renderer';
+import PlayerRenderer from "./graphics/player_renderer";
 import Physics from "./systems/physics";
 import MapStart from "./systems/map_start";
 import MapStop from "./systems/map_stop";
@@ -185,16 +186,20 @@ class Chap1Map1 extends React.Component {
     let player = this.initEntityPropertiesObject(
       this.entityProperties,
       "player",
-      "rectangle",
+      "circle",
       "player",
       false,
-      null,
+      Constants.defaultPlayerSize.radius,
       Constants.defaultPlayerSize.width,
       Constants.defaultPlayerSize.height,
       Constants.defaultPlayerStartPosition.x,
       Constants.defaultPlayerStartPosition.y,
-      "pink"
+      "pink",
+      {
+        renderer: PlayerRenderer,
+      }
     );
+    player.restitution= 0;
 
     let defaultFloor = this.initEntityPropertiesObject(
       this.entityProperties,
@@ -272,10 +277,10 @@ class Chap1Map1 extends React.Component {
     let groundEnemy1 = this.initEntityPropertiesObject(
       this.entityProperties,
       "groundEnemy1",
-      "rectangle",
+      "circle",
       "enemy",
       true,
-      null,
+      Constants.groundEnemy1Size.radius,
       Constants.groundEnemy1Size.width,
       Constants.groundEnemy1Size.height,
       Constants.groundEnemy1Position.x,
