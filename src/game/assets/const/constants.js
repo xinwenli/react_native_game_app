@@ -75,10 +75,12 @@ export const trap1Position = {
 
 export const groundEnemy1Size = {
   radius: Screen.height / 15,
+  width: Screen.width / 20,
+  height: Screen.height / 8,
 };
 export const groundEnemy1Position = {
   //x: 400,
-  x: Screen.width + groundEnemy1Size.radius + Screen.width / 8,
+  x: Screen.width + groundEnemy1Size.width/2 + Screen.width / 8,
   y: baseFloorLevel - groundEnemy1Size.radius,
 };
 export const groundEnemy1MovRange = {
@@ -118,4 +120,4 @@ export const defaultPlayerProps = {
 };
 
 export const defaultPlayerDamageResisTime = 2 * 1000;
-export const defaultPlayerJumpHeight = 8;
+export const defaultPlayerJumpHeight = 6;

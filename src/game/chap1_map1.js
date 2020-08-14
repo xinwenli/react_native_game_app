@@ -195,9 +195,6 @@ class Chap1Map1 extends React.Component {
       Constants.defaultPlayerStartPosition.y,
       "pink"
     );
-    player.frictionAir = 0.03;
-
-    console.log(this.entityProperties["player"]);
 
     let defaultFloor = this.initEntityPropertiesObject(
       this.entityProperties,
@@ -275,12 +272,12 @@ class Chap1Map1 extends React.Component {
     let groundEnemy1 = this.initEntityPropertiesObject(
       this.entityProperties,
       "groundEnemy1",
-      "circle",
+      "rectangle",
       "enemy",
-      false,
-      Constants.groundEnemy1Size.radius,
+      true,
       null,
-      null,
+      Constants.groundEnemy1Size.width,
+      Constants.groundEnemy1Size.height,
       Constants.groundEnemy1Position.x,
       Constants.groundEnemy1Position.y,
       "red",

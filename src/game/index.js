@@ -72,6 +72,7 @@ export default class Home extends Component {
   };
 
   render() {
+    return <Chap1Map1 />;
     if (this.state.startMap) {
       if (this.state.isShowPlayer) {
         if (this.state.playerChapter === "Chapter 1") {
@@ -128,10 +129,10 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "absolute",
     backgroundColor: "white",
   },
   chapterFlstList: {
-    flex: 1,
     paddingTop: Constants.chapterFlstListPadding.top,
     paddingBottom: Constants.chapterFlstListPadding.bottom,
     paddingLeft: Constants.chapterFlstListPadding.left,

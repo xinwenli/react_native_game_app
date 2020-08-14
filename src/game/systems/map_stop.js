@@ -11,14 +11,15 @@ const MapStop = (entities, isMapClear) => {
       //player movement control
       if (entity.type === "player") {
         if (body.position.x > Screen.width*1.3) {
-          Matter.Body.setVelocity(body, {
+          Matter.Body.translate(body, {
             x: 0,
             y: body.velocity.y,
           });
         } else {
-          Matter.Body.setVelocity(body, {
+          Matter.Body.translate(body, {
+            //x: 0,
             x: Constants.defaultPlayerSpeed,
-            y: body.velocity.y,
+            y: 0,
           });
         }
       }

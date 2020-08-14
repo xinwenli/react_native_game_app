@@ -24,15 +24,17 @@ const Jump = (entities, {touches, time, screen, layout, events}) => {
     }
 
     let hadTouches = false;
-    touches.filter(t => t.type === "press").forEach(t => {
+    //touches.filter(t => t.type === "press").forEach(t => {
+    if(touches.find((t) => t.type === "press")){
         if(Jump.standOnFloor === true || 
             Jump.standOnWall === true ||
             Jump.jumpCount <=1){
                 if(!hadTouches){
                     hadTouches = true;
-                    if(world.gravity.y === 0){
-                        world.gravity.y = 1.2;
-                    }
+                    /*
+                    if(world.gravity === 0){
+                        world.gravity=1.2;
+                    }*/
                     Matter.Body.setVelocity(player, {
                         x: player.velocity.x,
                         y: -Constants.defaultPlayerJumpHeight,
@@ -42,7 +44,8 @@ const Jump = (entities, {touches, time, screen, layout, events}) => {
             Jump.standOnFloor = false;
             Jump.standOnWall = false;
         }
-    });
+    };
+    //);
 
     return entities;
 }

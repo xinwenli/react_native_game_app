@@ -54,7 +54,7 @@ const MapStart = (entities, isMapStart, isMapClear, entityProperties) => {
             //console.log(entity.movRange.right);
             //console.log(MapStart.horizentalDirection);
             if (MapStart.horizentalDirection === "right") {
-              Matter.Body.setVelocity(body, {
+              Matter.Body.translate(body, {
                 x: Constants.defaultEnemySpeed,
                 y: body.velocity.y,
               });
@@ -65,7 +65,7 @@ const MapStart = (entities, isMapStart, isMapClear, entityProperties) => {
                 MapStart.horizentalDirection = "left";
               }
             } else if (MapStart.horizentalDirection === "left") {
-              Matter.Body.setVelocity(body, {
+              Matter.Body.translate(body, {
                 x: -Constants.defaultEnemySpeed,
                 y: body.velocity.y,
               });
@@ -83,12 +83,12 @@ const MapStart = (entities, isMapStart, isMapClear, entityProperties) => {
       //player movement control
       if (entity.type === "player") {
         if (body.position.x > Screen.width / 2) {
-          Matter.Body.setVelocity(body, {
+          Matter.Body.translate(body, {
             x: 0,
             y: body.velocity.y,
           });
         } else {
-          Matter.Body.setVelocity(body, {
+          Matter.Body.translate(body, {
             x: Constants.defaultPlayerSpeed + Constants.defaultMapMovSpeed,
             y: body.velocity.y,
           });
