@@ -8,10 +8,13 @@ export const collisionCategory = {
   trap: 0x3,
   enemy: 0x4,
   goal: 0x5,
+  decoration: 0x6,
 };
 
 export const baseFloorLevel = (Screen.height / 10) * 9;
 export const baseFloorHeight = Screen.height - baseFloorLevel;
+export const baseFloorCoverHeight = Screen.height / 10;
+export const baseFloorCoverLevel = baseFloorLevel - baseFloorCoverHeight;
 export const defaultPlayerSize = {
   radius: Screen.height / 15,
   width: Screen.width / 15,
@@ -42,6 +45,18 @@ export const defaultFloorPosition = {
   x: 0 + defaultFloorSize.width / 2,
   y: baseFloorLevel + defaultFloorSize.height / 2,
 };
+
+export const defaultFloorCoverSize = {
+  width: defaultFloorSize.width,
+  height: baseFloorCoverHeight,
+}
+
+export const defaultFloorCoverPosition = {
+  //x: 0,
+  x: defaultFloorPosition.x,
+  //y:100,
+  y: defaultFloorPosition.y - defaultFloorCoverSize.height/2,
+}
 
 export const floor1Size = {
   width: Screen.width,
@@ -92,9 +107,9 @@ export const groundEnemy1MovRange = {
 };
 export const defaultPlayerLifePoint = 2;
 
-export const defaultMapMovSpeed = -1.5;
-export const defaultPlayerSpeed = 2;
-export const defaultEnemySpeed = 2;
+export const defaultMapMovSpeed = -2.5;
+export const defaultPlayerSpeed = 3;
+export const defaultEnemySpeed = 3;
 
 export const defaultChapterBoxSize = {
   width: (Screen.width / 5) * 3,
@@ -124,5 +139,14 @@ export const defaultPlayerDamageResisTime = 2 * 1000;
 export const defaultPlayerJumpHeight = 6;
 export const PlayerImageSize = {
   width: 100,
-  height: 80
+  height: 60
 }
+export const defaultPlayerFlutterTime = 200;
+export const yellowBricksBlockSize={
+  width: 300,
+  height: 300,
+};
+export const yellowBricksBlockCoverSize = {
+  width: 180,
+  height: 60,
+};

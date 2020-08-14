@@ -17,6 +17,7 @@ const LifeReduce = (entities, { events, time, dispatch }) => {
       }
     }
   }
+  return entities;
 };
 
 export default LifeReduce;

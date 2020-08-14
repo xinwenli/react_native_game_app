@@ -4,7 +4,7 @@ import Timer from "./utils/perf-timer";
 import Matter from "matter-js";
 import CircleRenderer from "./graphics/circle_renderer";
 import RectRenderer from "./graphics/rect_renderer";
-import FloorRenderer from './graphics/floor_renderer';
+import StaticRepeatRenderer from './graphics/static_repeat_renderer';
 import PlayerRenderer from "./graphics/player_renderer";
 import Physics from "./systems/physics";
 import MapStart from "./systems/map_start";
@@ -12,13 +12,16 @@ import MapStop from "./systems/map_stop";
 import Jump from "./systems/jump";
 import Drop from "./systems/drop";
 import LifeReduce from "./systems/life_reduce";
+import PlayerFlutter from "./systems/player_flutter";
 import Test from "./systems/test";
 import TapToStart from "./component/tap_to_start";
 import GameOptionBox from "./component/game_options";
 import GameButton from "./component/game_button";
-import { View, Text, StatusBar, StyleSheet } from "react-native";
+import { View, Text, StatusBar, StyleSheet, Image } from "react-native";
 import Home from "./index";
+import {Screen} from "./utils/screen";
 import * as Constants from "./assets/const/constants";
+import Images from "./assets/image/images";
 
 class Chap1Map1 extends React.Component {
   constructor(props) {
@@ -29,7 +32,7 @@ class Chap1Map1 extends React.Component {
     this.state = {
       isStartMap: true,
       isClearMap: false,
-      isRunning: false,
+      isRunning: true,
       isShowOptions: false,
       optionNames: ["Resume", "Restart", "Back to home"],
       onOptionPresses: [
@@ -196,6 +199,7 @@ class Chap1Map1 extends React.Component {
       Constants.defaultPlayerStartPosition.y,
       "pink",
       {
+        pos: 1,
         renderer: PlayerRenderer,
       }
     );
@@ -214,9 +218,32 @@ class Chap1Map1 extends React.Component {
       Constants.defaultFloorPosition.y,
       "green",
       {
-        renderer: FloorRenderer,
+        renderer: StaticRepeatRenderer,
+        imgName: "yellowBricksBlock",
+        imgSource: Images.yellowBricksBlock
       }
     );
+
+    let defaultFloorCover = this.initEntityPropertiesObject(
+      this.entityProperties,
+      "defaultFloorCover",
+      "rectangle",
+      "floor",
+      true,
+      null,
+      Constants.defaultFloorCoverSize.width,
+      Constants.defaultFloorCoverSize.height,
+      Constants.defaultFloorCoverPosition.x,
+      Constants.defaultFloorCoverPosition.y,
+      null,
+      {
+        renderer: StaticRepeatRenderer,
+        imgName: "yellowBricksBlockCover",
+        imgSource: Images.yellowBricksBlockCover
+      }
+    );
+
+    console.log(defaultFloorCover);
 
     let floor1 = this.initEntityPropertiesObject(
       this.entityProperties,
@@ -301,6 +328,7 @@ class Chap1Map1 extends React.Component {
     Matter.World.add(world, [
       player,
       defaultFloor,
+      defaultFloorCover,
       floor1,
       defaultGoal,
       wall1,
@@ -409,6 +437,7 @@ class Chap1Map1 extends React.Component {
     return {
       physics: { engine: engine, world: world },
       defaultFloor: this.entityProperties["defaultFloor"],
+      defaultFloorCover: this.entityProperties["defaultFloorCover"],
       floor1: this.entityProperties["floor1"],
       defaultGoal: this.entityProperties["defaultGoal"],
       wall1: this.entityProperties["wall1"],
@@ -520,6 +549,7 @@ class Chap1Map1 extends React.Component {
     return (
       // Map1
       <View style={styles.container}>
+        <Image style={styles.image} source={Images.backgound_dessert} resizeMode="stretch" />
         <StatusBar hidden={true} />
         <Text style={styles.text}> Life: {this.state.playerLifePoint} </Text>
         <GameEngine
@@ -537,9 +567,10 @@ class Chap1Map1 extends React.Component {
               this.entityProperties
             ),
             MapStop.bind(this, this.entities, this.state.isClearMap),
+            Drop.bind(this, this.entities, this.gameEngine),
             Jump,
             LifeReduce,
-            Drop.bind(this, this.entities, this.gameEngine),
+            PlayerFlutter,
           ]}
           running={this.state.isRunning}
           //running={true}
@@ -575,6 +606,15 @@ const styles = StyleSheet.create({
     left: 0,
     padding: 20,
   },
+  image:{
+    position: "absolute",
+    top:0,
+    left:0,
+    right:0,
+    bottom:0,
+    width: Screen.width,
+    height: Screen.height,
+  }
 });
 
 export default Chap1Map1;
