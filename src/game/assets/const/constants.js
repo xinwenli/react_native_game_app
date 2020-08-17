@@ -10,22 +10,50 @@ export const collisionCategory = {
   goal: 0x5,
   decoration: 0x6,
 };
+export const StoneBlockCoverRenderSize = {
+  topleft: {
+    width:Screen.width/74, //9
+    height:Screen.height/18, //21
+  },
+  topmiddle: {
+    width:Screen.width/30, //22
+    height:Screen.height/18, //21
+  },
+  topright:{
+    width:Screen.width/74, //9
+    height:Screen.height/18, //21
+  },
+  middleleft: {
+    width:Screen.width/74, //9
+    height:Screen.height/38, //10
+  },
+  middleright:{
+    width:Screen.width/74, //9
+    height:Screen.height/38, //10 
+  },  
+  bottomleft: {
+    width:Screen.width/74, //9
+    height:Screen.height/42, //9
+  },
+  bottommiddle: {
+    width:Screen.width/30, //22
+    height:Screen.height/42, //9
+  },
+  bottomright:{
+    width:Screen.width/74, //9
+    height:Screen.height/42, //9
+  },
+}
 
-export const baseFloorLevel = (Screen.height / 10) * 9;
+export const defaultColors = {
+  block: "#684302",
+}
+
+export const baseFloorLevel = (Screen.height / 10) * 7;
 export const baseFloorHeight = Screen.height - baseFloorLevel;
 export const baseFloorCoverHeight = Screen.height / 10;
 export const baseFloorCoverLevel = baseFloorLevel - baseFloorCoverHeight;
-export const defaultPlayerSize = {
-  radius: Screen.height / 15,
-  width: Screen.width / 15,
-  height: Screen.height / 8,
-};
-export const defaultPlayerStartPosition = {
-  //x: 10,
-  x: Screen.width / 3,
-  //y: baseFloorLevel - defaultPlayerSize.height/2,
-  y: baseFloorLevel - defaultPlayerSize.radius,
-};
+
 
 export const wall1Size = {
   width: Screen.width / 20,
@@ -38,9 +66,11 @@ export const wall1Position = {
 };
 
 export const defaultFloorSize = {
-  width: Screen.width * 1.5,
+  width: StoneBlockCoverRenderSize.topleft.width + StoneBlockCoverRenderSize.topright.width + StoneBlockCoverRenderSize.topmiddle.width*30,
   height: baseFloorHeight,
+  //height: 100
 };
+
 export const defaultFloorPosition = {
   x: 0 + defaultFloorSize.width / 2,
   y: baseFloorLevel + defaultFloorSize.height / 2,
@@ -55,8 +85,19 @@ export const defaultFloorCoverPosition = {
   //x: 0,
   x: defaultFloorPosition.x,
   //y:100,
-  y: defaultFloorPosition.y - defaultFloorCoverSize.height/2,
+  y: defaultFloorPosition.y - defaultFloorCoverSize.height,
 }
+export const defaultPlayerSize = {
+  radius: Screen.height / 17,
+  width: Screen.width / 15,
+  height: Screen.height / 8,
+};
+export const defaultPlayerStartPosition = {
+  //x: 10,
+  x: Screen.width / 3,
+  //y: baseFloorLevel - defaultPlayerSize.height/2,
+  y: defaultFloorCoverPosition.y - defaultFloorCoverSize.height/2 - defaultPlayerSize.radius,
+};
 
 export const floor1Size = {
   width: Screen.width,
@@ -150,3 +191,4 @@ export const yellowBricksBlockCoverSize = {
   width: 180,
   height: 60,
 };
+

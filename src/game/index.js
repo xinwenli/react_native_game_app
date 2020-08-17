@@ -19,7 +19,7 @@ export default class Home extends Component {
       isShowGameSettingOption: false,
       isShwoGameSettingButton: true,
     };
-
+    //console.log(Screen);
     //FileSys.getStringData("test").then((value) => {console.log(value)});
     //let test = getStringData("test")
     //test.then((value) => {console.log(value)});
@@ -73,6 +73,7 @@ export default class Home extends Component {
 
   render() {
     return <Chap1Map1 />;
+    /*
     if (this.state.startMap) {
       if (this.state.isShowPlayer) {
         if (this.state.playerChapter === "Chapter 1") {
@@ -88,7 +89,7 @@ export default class Home extends Component {
           }
         }
       }
-    }
+    }*/
 
     return (
       // the Home Page

@@ -4,7 +4,7 @@ import Timer from "./utils/perf-timer";
 import Matter from "matter-js";
 import CircleRenderer from "./graphics/circle_renderer";
 import RectRenderer from "./graphics/rect_renderer";
-import StaticRepeatRenderer from './graphics/static_repeat_renderer';
+import StaticBlockRenderer from './graphics/static_block_renderer';
 import PlayerRenderer from "./graphics/player_renderer";
 import Physics from "./systems/physics";
 import MapStart from "./systems/map_start";
@@ -32,7 +32,7 @@ class Chap1Map1 extends React.Component {
     this.state = {
       isStartMap: true,
       isClearMap: false,
-      isRunning: true,
+      isRunning: false,
       isShowOptions: false,
       optionNames: ["Resume", "Restart", "Back to home"],
       onOptionPresses: [
@@ -199,7 +199,7 @@ class Chap1Map1 extends React.Component {
       Constants.defaultPlayerStartPosition.y,
       "pink",
       {
-        pos: 1,
+        pos: 2,
         renderer: PlayerRenderer,
       }
     );
@@ -216,11 +216,14 @@ class Chap1Map1 extends React.Component {
       Constants.defaultFloorSize.height,
       Constants.defaultFloorPosition.x,
       Constants.defaultFloorPosition.y,
-      "green",
+      Constants.defaultColors.block,
       {
-        renderer: StaticRepeatRenderer,
-        imgName: "yellowBricksBlock",
-        imgSource: Images.yellowBricksBlock
+        renderer: StaticBlockRenderer,
+        imgName: "StoneBlockCover",
+        renderTop: true,
+        renderLeft: true,
+        renderRight: true,
+        renderBottom: true,
       }
     );
 
@@ -235,15 +238,10 @@ class Chap1Map1 extends React.Component {
       Constants.defaultFloorCoverSize.height,
       Constants.defaultFloorCoverPosition.x,
       Constants.defaultFloorCoverPosition.y,
-      null,
-      {
-        renderer: StaticRepeatRenderer,
-        imgName: "yellowBricksBlockCover",
-        imgSource: Images.yellowBricksBlockCover
-      }
+      "yellow",
     );
 
-    console.log(defaultFloorCover);
+    //console.log(defaultFloorCover);
 
     let floor1 = this.initEntityPropertiesObject(
       this.entityProperties,
@@ -328,7 +326,7 @@ class Chap1Map1 extends React.Component {
     Matter.World.add(world, [
       player,
       defaultFloor,
-      defaultFloorCover,
+      //defaultFloorCover,
       floor1,
       defaultGoal,
       wall1,
@@ -437,7 +435,7 @@ class Chap1Map1 extends React.Component {
     return {
       physics: { engine: engine, world: world },
       defaultFloor: this.entityProperties["defaultFloor"],
-      defaultFloorCover: this.entityProperties["defaultFloorCover"],
+      //defaultFloorCover: this.entityProperties["defaultFloorCover"],
       floor1: this.entityProperties["floor1"],
       defaultGoal: this.entityProperties["defaultGoal"],
       wall1: this.entityProperties["wall1"],
@@ -549,7 +547,7 @@ class Chap1Map1 extends React.Component {
     return (
       // Map1
       <View style={styles.container}>
-        <Image style={styles.image} source={Images.backgound_dessert} resizeMode="stretch" />
+        <Image style={styles.image} source={Images.background_dessert} resizeMode="stretch" />
         <StatusBar hidden={true} />
         <Text style={styles.text}> Life: {this.state.playerLifePoint} </Text>
         <GameEngine
