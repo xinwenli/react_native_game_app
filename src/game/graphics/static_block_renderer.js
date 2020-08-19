@@ -195,7 +195,6 @@ export default class StaticBlockRenderer extends Component {
           left: this.left,
           width: this.width,
           height: this.height,
-          //backgroundColor: this.color,
           overflow: "hidden",
           flexDirection: "column",
         }}

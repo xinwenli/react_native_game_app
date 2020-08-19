@@ -11,9 +11,17 @@ export default Images = {
     StoneBlockCoverBottomRight: require("./StoneBlockCoverBottomRight.png"),
     StoneBlockCoverMiddleLeft: require("./StoneBlockCoverMiddleLeft.png"),
     StoneBlockCoverMiddleRight: require("./StoneBlockCoverMiddleRight.png"),
-    blackCreature1: require("./blackCreature1.png"),
-    blackCreature2: require("./blackCreature2.png"),
+    blackCreatureStand1: require("./blackCreatureStand1.png"),
+    blackCreatureStand2: require("./blackCreatureStand2.png"),
+    blackCreatureRun1: require("./blackCreatureRun1.png"),
+    blackCreatureRun2: require("./blackCreatureRun2.png"),
+    blackCreatureRun3: require("./blackCreatureRun3.png"),
+    blackCreatureDamage1: require("./blackCreatureDamage1.png"),
+    blackCreatureDamage2: require("./blackCreatureDamage2.png"),
+    blackCreatureDamage3: require("./blackCreatureDamage3.png"),
+    enemyLlama1: require("./enemyLlama1.png"),
+    enemyLlama2: require("./enemyLlama2.png"),
+    redTrap: require("./redTrap.png"),
     background_dessert: require("./background_dessert.png"),
-
 
 }

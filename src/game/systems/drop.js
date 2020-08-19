@@ -3,7 +3,7 @@ import {Screen} from "../utils/screen";
 
 const Drop = (entities, engine) => {
     let player = entities.player.body;
-    if(player.position.x < 0 || player.position.y > Screen.height ){
+    if(player.position.y > Screen.height || player.position.x < 0){
         engine.dispatch({ type: "gameOver" });
     }
     return entities;

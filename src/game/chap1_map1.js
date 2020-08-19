@@ -4,8 +4,10 @@ import Timer from "./utils/perf-timer";
 import Matter from "matter-js";
 import CircleRenderer from "./graphics/circle_renderer";
 import RectRenderer from "./graphics/rect_renderer";
-import StaticBlockRenderer from './graphics/static_block_renderer';
+import StaticBlockRenderer from "./graphics/static_block_renderer";
 import PlayerRenderer from "./graphics/player_renderer";
+import EnemyRenderer from "./graphics/enemy_renderer";
+import TrapRenderer from "./graphics/trap_renderer";
 import Physics from "./systems/physics";
 import MapStart from "./systems/map_start";
 import MapStop from "./systems/map_stop";
@@ -13,13 +15,16 @@ import Jump from "./systems/jump";
 import Drop from "./systems/drop";
 import LifeReduce from "./systems/life_reduce";
 import PlayerFlutter from "./systems/player_flutter";
+import PlayerRun from "./systems/player_run";
+import PlayerDamage from "./systems/player_damage";
+import EnemyFlutter from "./systems/enemy_flutter";
 import Test from "./systems/test";
 import TapToStart from "./component/tap_to_start";
 import GameOptionBox from "./component/game_options";
 import GameButton from "./component/game_button";
 import { View, Text, StatusBar, StyleSheet, Image } from "react-native";
 import Home from "./index";
-import {Screen} from "./utils/screen";
+import { Screen } from "./utils/screen";
 import * as Constants from "./assets/const/constants";
 import Images from "./assets/image/images";
 
@@ -28,7 +33,6 @@ class Chap1Map1 extends React.Component {
     super(props);
     this.gameEngine = null;
     this.entityProperties = new Object();
-    this.entities = this.setupWorld();
     this.state = {
       isStartMap: true,
       isClearMap: false,
@@ -46,6 +50,7 @@ class Chap1Map1 extends React.Component {
       doubleJump: true,
       optionTitle: "Pause",
     };
+    this.entities = this.setupWorld();
     //getStringData("test").then((value) => {console.log(value)});
   }
 
@@ -199,11 +204,13 @@ class Chap1Map1 extends React.Component {
       Constants.defaultPlayerStartPosition.y,
       "pink",
       {
-        pos: 2,
+        pos: 1,
+        playerActionState: "Stand",
         renderer: PlayerRenderer,
       }
     );
-    player.restitution= 0;
+    player.restitution = 0;
+    console.log(player.collisionFilter);
 
     let defaultFloor = this.initEntityPropertiesObject(
       this.entityProperties,
@@ -227,22 +234,6 @@ class Chap1Map1 extends React.Component {
       }
     );
 
-    let defaultFloorCover = this.initEntityPropertiesObject(
-      this.entityProperties,
-      "defaultFloorCover",
-      "rectangle",
-      "floor",
-      true,
-      null,
-      Constants.defaultFloorCoverSize.width,
-      Constants.defaultFloorCoverSize.height,
-      Constants.defaultFloorCoverPosition.x,
-      Constants.defaultFloorCoverPosition.y,
-      "yellow",
-    );
-
-    //console.log(defaultFloorCover);
-
     let floor1 = this.initEntityPropertiesObject(
       this.entityProperties,
       "floor1",
@@ -254,7 +245,15 @@ class Chap1Map1 extends React.Component {
       Constants.floor1Size.height,
       Constants.floor1Position.x,
       Constants.floor1Position.y,
-      "green"
+      Constants.defaultColors.block,
+      {
+        renderer: StaticBlockRenderer,
+        imgName: "StoneBlockCover",
+        renderTop: true,
+        renderLeft: true,
+        renderRight: true,
+        renderBottom: true,
+      }
     );
 
     let defaultGoal = this.initEntityPropertiesObject(
@@ -282,7 +281,15 @@ class Chap1Map1 extends React.Component {
       Constants.wall1Size.height,
       Constants.wall1Position.x,
       Constants.wall1Position.y,
-      "green"
+      Constants.defaultColors.block,
+      {
+        renderer: StaticBlockRenderer,
+        imgName: "StoneBlockCover",
+        renderTop: true,
+        renderLeft: true,
+        renderRight: true,
+        renderBottom: true,
+      }
     );
 
     let trap1 = this.initEntityPropertiesObject(
@@ -296,8 +303,12 @@ class Chap1Map1 extends React.Component {
       Constants.trap1Size.height,
       Constants.trap1Position.x,
       Constants.trap1Position.y,
-      "red"
+      "red",
+      {
+        renderer: TrapRenderer,
+      }
     );
+    trap1.isSensor = true;
 
     let groundEnemy1 = this.initEntityPropertiesObject(
       this.entityProperties,
@@ -321,12 +332,14 @@ class Chap1Map1 extends React.Component {
           bottom: Constants.groundEnemy1MovRange.bottom,
         },
         movPattern: "horizontal-round",
+        pos: 1,
+        enemyKind: "Llama",
+        renderer: EnemyRenderer,
       }
     );
     Matter.World.add(world, [
       player,
       defaultFloor,
-      //defaultFloorCover,
       floor1,
       defaultGoal,
       wall1,
@@ -446,15 +459,19 @@ class Chap1Map1 extends React.Component {
   };
 
   onStartMap = () => {
-    this.setState({ isStartMap: false, isRunning: true });
+    this.setState({
+      isStartMap: false,
+      isRunning: true,
+    });
+    this.gameEngine.dispatch({ type: "gameStart" });
   };
 
   onClearMap = () => {
-    this.setState({ 
-      isBackToHome: true, 
-      isPauseButtonVisible: 
-      false 
+    this.setState({
+      isBackToHome: true,
+      isPauseButtonVisible: false,
     });
+
   };
 
   onEvent = (e) => {
@@ -462,8 +479,8 @@ class Chap1Map1 extends React.Component {
       this.setState({
         isRunning: false,
         isShowOptions: true,
-        optionNames:["Restart", "Back to Home"],
-        onOptionPresses:[this.onRestartPress, this.onBackToHomePress],
+        optionNames: ["Restart", "Back to Home"],
+        onOptionPresses: [this.onRestartPress, this.onBackToHomePress],
         isPauseButtonVisible: false,
         optionTitle: "Game Over",
       });
@@ -484,7 +501,7 @@ class Chap1Map1 extends React.Component {
         optionTitle: "Clear",
         isShowOptions: true,
         optionNames: ["Restart", "Back to home"],
-        onOptionPresses:[this.onRestartPress, this.onBackToHomePress],
+        onOptionPresses: [this.onRestartPress, this.onBackToHomePress],
         isPauseButtonVisible: false,
       });
     }
@@ -495,7 +512,11 @@ class Chap1Map1 extends React.Component {
       isRunning: false,
       isShowOptions: true,
       optionNames: ["Resume", "Restart", "Back to Home"],
-      onOptionPresses:[this.onResumePress, this.onRestartPress, this.onBackToHomePress],
+      onOptionPresses: [
+        this.onResumePress,
+        this.onRestartPress,
+        this.onBackToHomePress,
+      ],
       isPauseButtonVisible: false,
       isStartMap: false,
       optionTitle: "Pause",
@@ -520,7 +541,8 @@ class Chap1Map1 extends React.Component {
           y: this.entityProperties[entity.body.label].startPosition.y,
         });
       }
-    }
+    };
+    this.gameEngine.dispatch({ type: "gameRestart" });
   };
 
   onBackToHomePress = () => {
@@ -547,7 +569,11 @@ class Chap1Map1 extends React.Component {
     return (
       // Map1
       <View style={styles.container}>
-        <Image style={styles.image} source={Images.background_dessert} resizeMode="stretch" />
+        <Image
+          style={styles.image}
+          source={Images.background_dessert}
+          resizeMode="stretch"
+        />
         <StatusBar hidden={true} />
         <Text style={styles.text}> Life: {this.state.playerLifePoint} </Text>
         <GameEngine
@@ -569,6 +595,9 @@ class Chap1Map1 extends React.Component {
             Jump,
             LifeReduce,
             PlayerFlutter,
+            PlayerRun,
+            PlayerDamage,
+            EnemyFlutter,
           ]}
           running={this.state.isRunning}
           //running={true}
@@ -604,15 +633,15 @@ const styles = StyleSheet.create({
     left: 0,
     padding: 20,
   },
-  image:{
+  image: {
     position: "absolute",
-    top:0,
-    left:0,
-    right:0,
-    bottom:0,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     width: Screen.width,
     height: Screen.height,
-  }
+  },
 });
 
 export default Chap1Map1;

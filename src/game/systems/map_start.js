@@ -63,6 +63,7 @@ const MapStart = (entities, isMapStart, isMapClear, entityProperties) => {
                 entity.movRange.right
               ) {
                 MapStart.horizentalDirection = "left";
+                entity.scaleX = -1;
               }
             } else if (MapStart.horizentalDirection === "left") {
               Matter.Body.translate(body, {
@@ -74,6 +75,7 @@ const MapStart = (entities, isMapStart, isMapClear, entityProperties) => {
                 entity.movRange.left
               ) {
                 MapStart.horizentalDirection = "right";
+                entity.scaleX = 1;
               }
             }
           }
