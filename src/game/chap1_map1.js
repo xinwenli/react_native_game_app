@@ -8,6 +8,7 @@ import StaticBlockRenderer from "./graphics/static_block_renderer";
 import PlayerRenderer from "./graphics/player_renderer";
 import EnemyRenderer from "./graphics/enemy_renderer";
 import TrapRenderer from "./graphics/trap_renderer";
+import GoalRenderer from "./graphics/goal_renderer";
 import Physics from "./systems/physics";
 import MapStart from "./systems/map_start";
 import MapStop from "./systems/map_stop";
@@ -267,8 +268,10 @@ class Chap1Map1 extends React.Component {
       Constants.defaultGoalSize.height,
       Constants.defaultGoalPosition.x,
       Constants.defaultGoalPosition.y,
-      "blue"
+      "blue",
+      {renderer: GoalRenderer}
     );
+    defaultGoal.isSensor=true;
 
     let wall1 = this.initEntityPropertiesObject(
       this.entityProperties,

@@ -22,6 +22,7 @@ export default Images = {
     enemyLlama1: require("./enemyLlama1.png"),
     enemyLlama2: require("./enemyLlama2.png"),
     redTrap: require("./redTrap.png"),
+    goal: require("./goal.png"),
     background_dessert: require("./background_dessert.png"),
 
 }

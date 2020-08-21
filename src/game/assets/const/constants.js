@@ -123,7 +123,7 @@ export const floor1Size = {
   width:      
   StoneBlockCoverRenderSize.topleft.width +
   StoneBlockCoverRenderSize.topright.width +
-  StoneBlockCoverRenderSize.topmiddle.width * 10,
+  StoneBlockCoverRenderSize.topmiddle.width * 40,
   height: baseFloorHeight,
 };
 
@@ -132,15 +132,20 @@ export const floor1Position = {
   y: baseFloorLevel + floor1Size.height / 2,
 };
 
+export const goalRenderSize = {
+  width: Screen.width/2, //528 resize
+  height: Screen.height/2, //323 resize
+}
+
 export const defaultGoalSize = {
-  width: Screen.width,
-  height: baseFloorHeight,
+  width: Screen.width/2,
+  height: Screen.height/2,
 };
 
 export const defaultGoalPosition = {
   //x: 0,
   x: Screen.width * 2.2 + defaultGoalSize.width / 2,
-  y: baseFloorLevel + defaultGoalSize.height / 2,
+  y: baseFloorLevel - defaultGoalSize.height / 2,
 };
 
 export const trap1Size = {
@@ -149,7 +154,7 @@ export const trap1Size = {
 };
 export const trap1Position = {
   //x: 300,
-  x: floor1Position.x + trap1Size.width / 2,
+  x: Screen.width * 1.8 + trap1Size.width / 2,
   y: baseFloorLevel - trap1Size.height / 2,
 };
 
