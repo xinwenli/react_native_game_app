@@ -46,16 +46,15 @@ export const StoneBlockCoverRenderSize = {
 };
 
 export const redTrapRenderSize = {
-  width: Screen.width/20 , //34
-  height: Screen.height/9, //40
-}
-
+  width: Screen.width / 20, //34
+  height: Screen.height / 9, //40
+};
 
 export const originalBlackCreaturePixel = 12;
 export const originalEnemyPixel = {
   width: 10,
-  height:16,
-}
+  height: 16,
+};
 
 export const defaultColors = {
   block: "#684302",
@@ -67,10 +66,10 @@ export const baseFloorCoverHeight = Screen.height / 10;
 export const baseFloorCoverLevel = baseFloorLevel - baseFloorCoverHeight;
 
 export const wall1Size = {
-  width:     
-  StoneBlockCoverRenderSize.topleft.width +
-  StoneBlockCoverRenderSize.topright.width +
-  StoneBlockCoverRenderSize.topmiddle.width * 1,
+  width:
+    StoneBlockCoverRenderSize.topleft.width +
+    StoneBlockCoverRenderSize.topright.width +
+    StoneBlockCoverRenderSize.topmiddle.width * 1,
   height: Screen.height / 8,
 };
 
@@ -120,10 +119,10 @@ export const defaultPlayerStartPosition = {
 };
 
 export const floor1Size = {
-  width:      
-  StoneBlockCoverRenderSize.topleft.width +
-  StoneBlockCoverRenderSize.topright.width +
-  StoneBlockCoverRenderSize.topmiddle.width * 40,
+  width:
+    StoneBlockCoverRenderSize.topleft.width +
+    StoneBlockCoverRenderSize.topright.width +
+    StoneBlockCoverRenderSize.topmiddle.width * 40,
   height: baseFloorHeight,
 };
 
@@ -133,13 +132,13 @@ export const floor1Position = {
 };
 
 export const goalRenderSize = {
-  width: Screen.width/2, //528 resize
-  height: Screen.height/2, //323 resize
-}
+  width: Screen.width / 2, //528 resize
+  height: Screen.height / 2, //323 resize
+};
 
 export const defaultGoalSize = {
-  width: Screen.width/2,
-  height: Screen.height/2,
+  width: Screen.width / 2,
+  height: Screen.height / 2,
 };
 
 export const defaultGoalPosition = {
@@ -149,7 +148,7 @@ export const defaultGoalPosition = {
 };
 
 export const trap1Size = {
-  width: redTrapRenderSize.width*3,
+  width: redTrapRenderSize.width * 3,
   height: redTrapRenderSize.height,
 };
 export const trap1Position = {
@@ -159,7 +158,7 @@ export const trap1Position = {
 };
 
 export const groundEnemy1Size = {
-  radius: Screen.height / 38 * 2, //10
+  radius: (Screen.height / 38) * 2, //10
   width: Screen.width / 20,
   height: Screen.height / 8,
 };
@@ -221,3 +220,49 @@ export const yellowBricksBlockCoverSize = {
   width: 180,
   height: 60,
 };
+
+const gameOptionBoxRenderScale = 0.7
+
+export const gameOptionBoxRenderSize = {
+  paddingTop: (Screen.height / 8) * gameOptionBoxRenderScale, //45
+  paddingBottom: (Screen.height / 11)* gameOptionBoxRenderScale, //35
+  paddingLeft: (Screen.width/6)*gameOptionBoxRenderScale, 
+  paddingRight: (Screen.width/6)*gameOptionBoxRenderScale, 
+  boxWidth: (Screen.width / 1.164)* gameOptionBoxRenderScale, //513
+  boxHeight: (Screen.height / 1.320)*gameOptionBoxRenderScale, //284
+};
+
+export const gameOptionBoxPosition = {
+  boxTop: Screen.height / 8,
+  boxLeft: Screen.width / 2 - gameOptionBoxRenderSize.boxWidth / 2,
+};
+
+export const gameOptionPadSize = {
+  titleHeight: gameOptionBoxRenderSize.boxHeight / 5,
+  optionHeight: (gameOptionBoxRenderSize.boxHeight / 9) * 2,
+  optionWidth: gameOptionBoxRenderSize.boxWidth,
+};
+
+export const gameOptionTitleRenderSize = {
+  width: gameOptionBoxRenderSize.boxWidth/10*5,
+  height:gameOptionPadSize.titleHeight/6*5,
+}
+
+export const gameOptionRenderSize = {
+  width:gameOptionBoxRenderSize.boxWidth - gameOptionBoxRenderSize.paddingLeft - gameOptionBoxRenderSize.paddingRight,
+  height:gameOptionPadSize.optionHeight - Screen.height/45,
+}
+
+export const gameOptionPadSignRenderSize = {
+  width:Screen.width/45, //10
+  height:Screen.height/17, //10
+  paddingLeft:Screen.width/45, //15
+  paddingTop: Screen.height/100, //10
+}
+
+export const gameOptionPadTextRenderSize = {
+  paddingLeft: Screen.width/45, //15
+  paddingTop: gameOptionPadSignRenderSize.paddingTop,
+  width:10,
+  height:gameOptionPadSignRenderSize.height,
+}

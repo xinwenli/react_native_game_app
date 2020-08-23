@@ -1,32 +1,71 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Screen } from "../utils/screen";
+import * as Constants from "../assets/const/constants";
+import Images from "../assets/image/images";
 
-const boxWidth = Screen.width / 3;
-const boxHeight = (Screen.height / 5) * 3;
-//const boxTop = 0;
-//const boxLeft = 0;
-const boxTop = Screen.height / 2 - boxHeight / 2;
-const boxLeft = Screen.width / 2 - boxWidth / 2;
-const titleHeight = boxHeight / 3;
-const optionHeight = (boxHeight / 9) * 2;
-
-const OptionView = (optionIdx,optionName, onOptionPresses) => {
+const OptionView = (optionIdx, optionName, onOptionPresses) => {
+  let optionSignImg = Images[optionName + "Sign"];
+  let optionNameTextImg = Images[optionName + "Text"];
+  let optionNameTextImgSize= Image.resolveAssetSource(optionNameTextImg);
+  let optionNameTextImgRenderWidth =  Constants.gameOptionPadTextRenderSize.height *(optionNameTextImgSize.width/optionNameTextImgSize.height);
+  //console.log(optionNameTextImgSize);
   return (
-    <View key={String(Math.random()*10000)}
+    <View
+      key={String(Math.random() * 10000)}
       style={[
         styles.container,
         {
-          top: titleHeight + optionIdx*optionHeight,
+          top:
+            Constants.gameOptionPadSize.titleHeight +
+            Constants.gameOptionBoxRenderSize.paddingTop +
+            optionIdx * Constants.gameOptionPadSize.optionHeight,
           left: 0,
-          width: boxWidth,
-          height: optionHeight,
-          backgroundColor: "blue",
+          width: Constants.gameOptionPadSize.optionWidth,
+          height: Constants.gameOptionPadSize.optionHeight,
         },
       ]}
     >
       <TouchableOpacity onPress={onOptionPresses}>
-        <Text style={[styles.textStyle, { paddingTop: optionHeight / 3 }]}>
+        <Image
+          style={{
+            position: "absolute",
+            top: 0,
+            left: Constants.gameOptionBoxRenderSize.paddingLeft,
+            width: Constants.gameOptionRenderSize.width,
+            height: Constants.gameOptionRenderSize.height,
+          }}
+          resizeMode="stretch"
+          source={Images.OptionPad}
+        />
+        <Image
+          style={{
+            position: "absolute",
+            top: Constants.gameOptionPadSignRenderSize.paddingTop,
+            left: Constants.gameOptionBoxRenderSize.paddingLeft + Constants.gameOptionPadSignRenderSize.paddingLeft,
+            width: Constants.gameOptionPadSignRenderSize.width,
+            height: Constants.gameOptionPadSignRenderSize.height,
+          }}
+          resizeMode="stretch"
+          source={optionSignImg}
+        />
+        <Image
+          style={{
+            position: "absolute",
+            top: Constants.gameOptionPadTextRenderSize.paddingTop,
+            left: Constants.gameOptionPadTextRenderSize.paddingLeft + Constants.gameOptionBoxRenderSize.paddingLeft + Constants.gameOptionPadSignRenderSize.paddingLeft + (Constants.gameOptionRenderSize.width - Constants.gameOptionPadSignRenderSize.width - Constants.gameOptionPadSignRenderSize.paddingLeft - optionNameTextImgRenderWidth)/2,
+            width: optionNameTextImgRenderWidth,
+            height: Constants.gameOptionPadTextRenderSize.height,
+          }}
+          resizeMode="stretch"
+          source={optionNameTextImg}
+        />
+        <Text
+          style={[
+            styles.textStyle,
+            { paddingTop: Constants.gameOptionPadSize.optionHeight / 3 },
+          ]}
+        >
           {optionName}
         </Text>
       </TouchableOpacity>
@@ -35,8 +74,8 @@ const OptionView = (optionIdx,optionName, onOptionPresses) => {
 };
 
 const OptionViews = (optionNames, onOptionPresses) => {
-  let res = []
-  for(const i in optionNames){
+  let res = [];
+  for (const i in optionNames) {
     let optionName = optionNames[i];
     let onOptionPress = onOptionPresses[i];
     res.push(OptionView(i, optionName, onOptionPress));
@@ -45,38 +84,62 @@ const OptionViews = (optionNames, onOptionPresses) => {
 };
 
 const GameOptionBox = (props) => {
+  let titleTextImg = Images[props.title + "Text"];
+  const boxHeight =
+    Constants.gameOptionPadSize.titleHeight +
+    Constants.gameOptionBoxRenderSize.paddingTop +
+    props.optionNames.length * Constants.gameOptionPadSize.optionHeight +
+    Constants.gameOptionBoxRenderSize.paddingBottom;
   if (props.visible) {
     return (
       <View
         style={[
           styles.container,
           {
-            top: boxTop,
-            left: boxLeft,
-            width: boxWidth,
+            top: Constants.gameOptionBoxPosition.boxTop,
+            left: Constants.gameOptionBoxPosition.boxLeft,
+            width: Constants.gameOptionBoxRenderSize.boxWidth,
             height: boxHeight,
-            opacity: 0.8,
-            backgroundColor: "transparent",
           },
         ]}
       >
+        <Image
+          style={styles.titleStyle}
+          resizeMode="stretch"
+          source={titleTextImg}
+        />
+        <Image
+          style={[
+            styles.optionBoxStyle,
+            { height: boxHeight - Constants.gameOptionTitleRenderSize.height },
+          ]}
+          resizeMode="stretch"
+          source={Images.OptionBox}
+        />
         <View
           style={[
             styles.container,
             {
               top: 0,
               left: 0,
-              width: boxWidth,
-              height: titleHeight,
-              backgroundColor: "yellow",
+              width: Constants.gameOptionBoxRenderSize.boxWidth,
+              height: Constants.gameOptionPadSize.titleHeight,
+              backgroundColor: "transparent",
             },
           ]}
         >
-          <Text style={[styles.textStyle, { paddingTop: titleHeight / 3 }]}>
+          <Text
+            style={[
+              styles.textStyle,
+              { paddingTop: Constants.gameOptionPadSize.titleHeight / 3 },
+            ]}
+          >
             {props.title}
           </Text>
         </View>
+        <View style={styles.paddingTop} />
         {OptionViews(props.optionNames, props.onOptionPresses)}
+        <View style={styles.paddingBottom} />
       </View>
     );
   }
@@ -99,6 +162,42 @@ const styles = StyleSheet.create({
     //justifyContent: "center",
     //alignItems: "center",
     alignSelf: "center",
+  },
+  titleStyle: {
+    position: "absolute",
+    top:
+      (Constants.gameOptionPadSize.titleHeight -
+        Constants.gameOptionTitleRenderSize.height) /
+      2,
+    left:
+      (Constants.gameOptionBoxRenderSize.boxWidth -
+        Constants.gameOptionTitleRenderSize.width) /
+      2,
+    width: Constants.gameOptionTitleRenderSize.width,
+    height: Constants.gameOptionTitleRenderSize.height,
+  },
+  optionBoxStyle: {
+    position: "absolute",
+    top: Constants.gameOptionPadSize.titleHeight,
+    left: 0,
+    width: Constants.gameOptionBoxRenderSize.boxWidth,
+    height:
+      Constants.gameOptionBoxRenderSize.boxHeight -
+      Constants.gameOptionPadSize.titleHeight,
+  },
+  paddingTop: {
+    top: 0,
+    left: 0,
+    width: Constants.gameOptionBoxRenderSize.boxWidth,
+    height:
+      Constants.gameOptionBoxRenderSize.boxHeight -
+      Constants.gameOptionPadSize.titleHeight,
+  },
+  paddingBottom: {
+    paddingBottom:
+      (Constants.gameOptionBoxRenderSize.boxHeight -
+        Constants.gameOptionPadSize.titleHeight) /
+      10,
   },
 });
 

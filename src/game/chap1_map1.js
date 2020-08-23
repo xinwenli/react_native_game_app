@@ -39,7 +39,7 @@ class Chap1Map1 extends React.Component {
       isClearMap: false,
       isRunning: false,
       isShowOptions: false,
-      optionNames: ["Resume", "Restart", "Back to home"],
+      optionNames: ["Resume", "Restart", "BackToHome"],
       onOptionPresses: [
         this.onResumePress,
         this.onRestartPress,
@@ -211,7 +211,6 @@ class Chap1Map1 extends React.Component {
       }
     );
     player.restitution = 0;
-    console.log(player.collisionFilter);
 
     let defaultFloor = this.initEntityPropertiesObject(
       this.entityProperties,
@@ -482,7 +481,7 @@ class Chap1Map1 extends React.Component {
       this.setState({
         isRunning: false,
         isShowOptions: true,
-        optionNames: ["Restart", "Back to Home"],
+        optionNames: ["Restart", "BackToHome"],
         onOptionPresses: [this.onRestartPress, this.onBackToHomePress],
         isPauseButtonVisible: false,
         optionTitle: "Game Over",
@@ -503,7 +502,7 @@ class Chap1Map1 extends React.Component {
         isClearMap: true,
         optionTitle: "Clear",
         isShowOptions: true,
-        optionNames: ["Restart", "Back to home"],
+        optionNames: ["Restart", "BackToHome"],
         onOptionPresses: [this.onRestartPress, this.onBackToHomePress],
         isPauseButtonVisible: false,
       });
@@ -514,7 +513,7 @@ class Chap1Map1 extends React.Component {
     this.setState({
       isRunning: false,
       isShowOptions: true,
-      optionNames: ["Resume", "Restart", "Back to Home"],
+      optionNames: ["Resume", "Restart", "BackToHome"],
       onOptionPresses: [
         this.onResumePress,
         this.onRestartPress,

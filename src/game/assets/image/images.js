@@ -23,6 +23,17 @@ export default Images = {
     enemyLlama2: require("./enemyLlama2.png"),
     redTrap: require("./redTrap.png"),
     goal: require("./goal.png"),
+    OptionBox: require("./OptionBox.png"),
+    OptionPad: require("./OptionPad.png"),
+    PauseText: require("./PauseText.png"),
+    PauseSign: require("./PauseSign.png"),
+    RestartText: require("./RestartText.png"),
+    RestartSign: require("./RestartSign.png"),
+    ResumeText: require("./ResumeText.png"),
+    ResumeSign: require("./ResumeSign.png"),
+    BackToHomeText: require("./BackToHomeText.png"),
+    BackToHomeSign: require("./BackToHomeSign.png"),
+    greyButton: require("./greyButton.png"),
     background_dessert: require("./background_dessert.png"),
 
 }
