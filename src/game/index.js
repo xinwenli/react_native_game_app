@@ -72,8 +72,8 @@ export default class Home extends Component {
   };
 
   render() {
-    return <Chap1Map1 />;
-    /*
+    //return <Chap1Map1 />;
+    
     if (this.state.startMap) {
       if (this.state.isShowPlayer) {
         if (this.state.playerChapter === "Chapter 1") {
@@ -89,7 +89,7 @@ export default class Home extends Component {
           }
         }
       }
-    }*/
+    }
 
     return (
       // the Home Page
@@ -106,20 +106,23 @@ export default class Home extends Component {
         <GameButton
           onPress={this.onMapStartPress}
           visible={true}
-          //top={0}
-          //left={0}
+          sign="Resume"
           top={(Screen.height / 10) * 9 - Screen.height / 16}
           left={Screen.width / 2 - Screen.width / 18}
         />
 
         <GameButton
           onPress={this.onGameSettingPress}
+          sign="Settings"
+          signWidth= {Screen.width / 9}
+          signHeight={ Screen.height / 7}
+          buttonBackground= {false}
           visible={this.state.isShwoGameSettingButton}
         />
         <GameOptionBox
           title={"Settings"}
           visible={this.state.isShowGameSettingOption}
-          optionNames={["Close"]}
+          optionNames={["BackToHome"]}
           onOptionPresses={[this.onGameSettingOptionClose]}
         />
       </View>
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: "absolute",
-    backgroundColor: "white",
+    backgroundColor: Constants.defaultColors.homeBackground,
   },
   chapterFlstList: {
     paddingTop: Constants.chapterFlstListPadding.top,

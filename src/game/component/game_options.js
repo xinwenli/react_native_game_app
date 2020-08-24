@@ -60,6 +60,7 @@ const OptionView = (optionIdx, optionName, onOptionPresses) => {
           resizeMode="stretch"
           source={optionNameTextImg}
         />
+        {/*
         <Text
           style={[
             styles.textStyle,
@@ -67,7 +68,7 @@ const OptionView = (optionIdx, optionName, onOptionPresses) => {
           ]}
         >
           {optionName}
-        </Text>
+        </Text>*/}
       </TouchableOpacity>
     </View>
   );
@@ -128,6 +129,7 @@ const GameOptionBox = (props) => {
             },
           ]}
         >
+          {/*
           <Text
             style={[
               styles.textStyle,
@@ -135,7 +137,7 @@ const GameOptionBox = (props) => {
             ]}
           >
             {props.title}
-          </Text>
+          </Text>*/}
         </View>
         <View style={styles.paddingTop} />
         {OptionViews(props.optionNames, props.onOptionPresses)}

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import MapEntry from "./map_entry";
 import { Screen } from "../utils/screen";
+import Images from "../assets/image/images";
+import * as Constants from "../assets/const/constants";
 
 const defaultMapEntryRadius = Screen.height / 20;
 const defaultPlayerSize = { radius: Screen.height / 15 };
@@ -23,6 +25,13 @@ export default class ChapterBox extends Component {
       playerMapEntry: this.mapEntries["map1"],
       playerChapter: props.playerChapter,
     };
+    if (this.chapterTitle === "Chapter 1") {
+      this.backgroundImg = Images["background_dessert"];
+      this.chapterTitleImg = Images["Chapter1TitleText"];
+      this.chapterTitleImgSize = Image.resolveAssetSource(this.chapterTitleImg);
+    }
+    this.playerImg = Images["blackCreatureStand1"];
+    this.platerImgaSize = Image.resolveAssetSource(this.playerImg);
   }
   /*
 
@@ -97,12 +106,25 @@ export default class ChapterBox extends Component {
             position: "absolute",
             top: top,
             left: left,
-            borderRadius: defaultPlayerSize.radius * 2,
-            width: defaultPlayerSize.radius * 2,
-            height: defaultPlayerSize.radius * 2,
-            backgroundColor: "pink",
+            //borderRadius: defaultPlayerSize.radius * 2,
+            width: defaultPlayerSize.radius * 2.3,
+            height: defaultPlayerSize.radius * 2.3,
+            //backgroundColor: "pink",
           }}
+        > 
+        <Image 
+        source={this.playerImg}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+        }}
+        resizeMode="stretch"
+        width={defaultPlayerSize.radius * 2.3}
+        height={defaultPlayerSize.radius * 2.3}
         />
+        
+        </View>
       );
     }
     return null;
@@ -121,9 +143,26 @@ export default class ChapterBox extends Component {
           },
         ]}
       >
+        <Image source={this.backgroundImg} resizeMode="stretch" style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: this.chapterBoxStyle.width,
+              height: this.chapterBoxStyle.height,
+        }} />
+        <Image source={this.chapterTitleImg} resizeMode="stretch" style={
+          {
+            position: "absolute",
+            top:0,
+            left: this.chapterTitleImgSize === undefined? 0 : (this.chapterBoxStyle.width - Constants.chapterBoxTitleRenderSize.height * this.chapterTitleImgSize.width/this.chapterTitleImgSize.height)/2,
+            width: this.chapterTitleImgSize === undefined? 0: Constants.chapterBoxTitleRenderSize.height * this.chapterTitleImgSize.width/this.chapterTitleImgSize.height,
+            height: Constants.chapterBoxTitleRenderSize.height,
+
+        }} />
+        {/*
         <View style={styles.titleText}>
           <Text>{this.chapterTitle}</Text>
-        </View>
+        </View>*/}
         <View style={[styles.alignMapEntry]}>{this.mapEntrysRenderer()}</View>
       </View>
     );

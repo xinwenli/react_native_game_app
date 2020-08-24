@@ -58,6 +58,7 @@ export const originalEnemyPixel = {
 
 export const defaultColors = {
   block: "#684302",
+  homeBackground: '#bebfc1',
 };
 
 export const baseFloorLevel = (Screen.height / 10) * 7;
@@ -265,4 +266,9 @@ export const gameOptionPadTextRenderSize = {
   paddingTop: gameOptionPadSignRenderSize.paddingTop,
   width:10,
   height:gameOptionPadSignRenderSize.height,
+}
+
+export const chapterBoxTitleRenderSize = {
+  width:Screen.width/7,
+  height:Screen.height/10,
 }

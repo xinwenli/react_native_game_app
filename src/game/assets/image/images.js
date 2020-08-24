@@ -33,7 +33,10 @@ export default Images = {
     ResumeSign: require("./ResumeSign.png"),
     BackToHomeText: require("./BackToHomeText.png"),
     BackToHomeSign: require("./BackToHomeSign.png"),
+    SettingsText: require("./SettingsText.png"),
+    SettingsSign: require("./SettingsSign.png"),
     greyButton: require("./greyButton.png"),
+    Chapter1TitleText: require("./Chapter1TitleText.png"),
     background_dessert: require("./background_dessert.png"),
 
 }
