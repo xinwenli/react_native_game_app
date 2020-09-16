@@ -35,8 +35,13 @@ export default Images = {
     BackToHomeSign: require("./BackToHomeSign.png"),
     SettingsText: require("./SettingsText.png"),
     SettingsSign: require("./SettingsSign.png"),
+    TapToStartText: require("./TapToStartText.png"),
+    ClearText: require("./ClearText.png"),
     greyButton: require("./greyButton.png"),
+    greyFrame: require("./greyFrame.png"),
+    MapEntryPoint: require("./MapEntryPoint.png"),
     Chapter1TitleText: require("./Chapter1TitleText.png"),
+    Flag: require("./Flag.png"),
     background_dessert: require("./background_dessert.png"),
 
 }

@@ -19,11 +19,45 @@ export default class Home extends Component {
       isShowGameSettingOption: false,
       isShwoGameSettingButton: true,
     };
+    FileSys.getStringData("PlayerSave1").then(
+      (value) => {
+        this.playerSave = JSON.parse(value);
+        this.playerSave.clearedChapter["Chapter 1"].map1=true;
+        //FileSys.storeObjData("PlayerSave1", this.playerSave);
+        //console.log(value);
+      },
+      (re) => {
+        console.log(re);
+        //No playerSave, initiate a new save for player
+        FileSys.storeObjData("PlayerSave1", this.initPlayerSave());
+      }
+    );
     //console.log(Screen);
     //FileSys.getStringData("test").then((value) => {console.log(value)});
     //let test = getStringData("test")
     //test.then((value) => {console.log(value)});
   }
+
+  initPlayerSave = () => {
+    let newSave = {
+      playerName: "player1",
+      currentLocation: {
+        chapter: { name: "Chapter 1" },
+        map: {
+          name: "map1",
+        },
+      },
+      clearedChapter: {
+        "Chapter 1": {
+          map1: false,
+          map2: false,
+        },
+      },
+    };
+
+    return newSave;
+  };
+
 
   onMapEntryPress = (mapEntry, chapter) => {
     this.setState({
@@ -73,7 +107,7 @@ export default class Home extends Component {
 
   render() {
     //return <Chap1Map1 />;
-    
+
     if (this.state.startMap) {
       if (this.state.isShowPlayer) {
         if (this.state.playerChapter === "Chapter 1") {
@@ -110,13 +144,14 @@ export default class Home extends Component {
           top={(Screen.height / 10) * 9 - Screen.height / 16}
           left={Screen.width / 2 - Screen.width / 18}
         />
-
         <GameButton
           onPress={this.onGameSettingPress}
           sign="Settings"
-          signWidth= {Screen.width / 9}
-          signHeight={ Screen.height / 7}
-          buttonBackground= {false}
+          top={Screen.height / 60}
+          left={Screen.width / 90}
+          signWidth={Screen.width / 9}
+          signHeight={Screen.height / 7}
+          buttonBackground={false}
           visible={this.state.isShwoGameSettingButton}
         />
         <GameOptionBox
@@ -132,14 +167,21 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
     position: "absolute",
     backgroundColor: Constants.defaultColors.homeBackground,
   },
   chapterFlstList: {
-    paddingTop: Constants.chapterFlstListPadding.top,
-    paddingBottom: Constants.chapterFlstListPadding.bottom,
-    paddingLeft: Constants.chapterFlstListPadding.left,
+    position: "absolute",
+    top: Constants.chapterFlstListPadding.top,
+    //paddingBottom: Constants.chapterFlstListPadding.bottom,
+    left: Constants.chapterFlstListPadding.left,
+    right: Constants.chapterFlstListPadding.right,
+    //width: (Screen.width / 5) * 3,
+    //height: (Screen.width / 5) * 3
   },
   mapIndicator: {},
 });

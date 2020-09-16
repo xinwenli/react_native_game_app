@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Modal } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Modal, Image } from "react-native";
 import { Screen } from "../utils/screen";
+import Images from "../assets/image/images";
 
 const tapToStart = (props) => {
   let width = Screen.width;
@@ -17,6 +18,17 @@ const tapToStart = (props) => {
           ]}
           onPress={props.onPress}
         >
+          <Image source={Images.TapToStartText}
+          resizeMode="stretch"
+          style={{
+            top: Screen.height/3,
+            left: Screen.width/2 - Screen.width/4/2,
+            width: Screen.width/4,
+            height: Screen.height/7,
+          }
+          }
+          />
+          {/*
           <Text
             style={[
               styles.textStyle,
@@ -26,7 +38,7 @@ const tapToStart = (props) => {
             ]}
           >
             Tap to start
-          </Text>
+          </Text>*/}
         </TouchableOpacity>
       </View>
     );

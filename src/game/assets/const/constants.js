@@ -182,14 +182,19 @@ export const defaultEnemySpeed = 3;
 
 export const defaultChapterBoxSize = {
   width: (Screen.width / 5) * 3,
-  height: (Screen.height / 5) * 3,
+  height: (Screen.height / 10) * 7,
 };
 
 export const defaultMapEntryRadius = Screen.height / 20;
+export const MapentryRenderSize = {
+  width: Screen.height / 8,
+  height:Screen.height / 16,
+}
 export const chapterFlstListPadding = {
-  top: Screen.height / 5,
+  top: Screen.height / 12,
   left: Screen.width / 8,
   bottom: Screen.height / 4,
+  right: Screen.width / 10,
 };
 
 export const chapterProps = [chapter1Data, chapter2Data];
@@ -271,4 +276,9 @@ export const gameOptionPadTextRenderSize = {
 export const chapterBoxTitleRenderSize = {
   width:Screen.width/7,
   height:Screen.height/10,
+}
+
+export const flagRenderSize = {
+  width:Screen.width/45,
+  height:Screen.height/9,
 }

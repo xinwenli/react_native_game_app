@@ -1,18 +1,17 @@
 This file indicate the game saving format to record player game progress within AsyncStorage.
 Format: JSON
 {
-    "Player current chapter": {
-        "title": String
-        },
-    "Player current map": {
-        "name": String
+    playerName: "player1",
+    currentLocation: {
+        chapter: { name: "Chapter 1" },
+            map: {
+                name: "map1",
+            },
     },
-    "Player cleared chapter":{
-        "title": [String]
-    } 
-    "Player cleared map":{
-        "name":{
-            star: number
-        }
-    }
+    clearedChapter: {
+        "Chapter 1": {
+            map1: false,
+            map2: false,
+        },
+    },
 }
