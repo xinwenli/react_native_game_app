@@ -144,6 +144,8 @@ export default class ChapterBox extends Component {
               position: "absolute",
               left: 0,
               top: 0,
+              width:Constants.flagRenderSize.width,
+              height:Constants.flagRenderSize.height,
             }}
             resizeMode="stretch"
             width={Constants.flagRenderSize.width}
